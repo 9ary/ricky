@@ -8,7 +8,7 @@ enum command_type
     stop
 };
 
-class context_manager_command
+class command
 {
     public:
         command_type type;
@@ -18,12 +18,12 @@ class context_manager_command
             context *c;
         };
 
-        context_manager_command(command_type type)
+        command(command_type type)
         {
             this->type = type;
         }
 
-        context_manager_command(command_type type, context *c)
+        command(command_type type, context *c)
         {
             this->type = type;
             this->c = c;
@@ -33,7 +33,7 @@ class context_manager_command
 namespace
 {
     std::vector<context *> stack;
-    std::queue<context_manager_command> commands;
+    std::queue<command> commands;
 }
 
 void context_manager::init()
@@ -51,12 +51,12 @@ void context_manager::terminate()
 
 void context_manager::push(context *c)
 {
-    commands.push(context_manager_command(::push, c));
+    commands.push(command(::push, c));
 }
 
 void context_manager::pop()
 {
-    commands.push(context_manager_command(::pop));
+    commands.push(command(::pop));
 }
 
 void context_manager::loop()
@@ -95,5 +95,5 @@ void context_manager::loop()
 
 void context_manager::stop()
 {
-    commands.push(context_manager_command(::stop));
+    commands.push(command(::stop));
 }

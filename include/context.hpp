@@ -14,8 +14,6 @@ class context
         virtual void render() = 0;
 };
 
-class context_manager_command;
-
 namespace context_manager
 {
     void init();

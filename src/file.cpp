@@ -16,7 +16,7 @@ file::file(std::string path)
     fs.read(buffer, size);
     if (fs.gcount() != size)
     {
-        log::put(log::ERROR, __func__, "%s: failed to read file", path.c_str());
+        logger::e(__func__, "%s: failed to read file", path.c_str());
         delete[] buffer;
         throw 1;
     }
@@ -29,5 +29,5 @@ file::~file()
 {
     delete[] buffer;
 
-    log::put(log::DEBUG, __func__, name.c_str());
+    logger::d(__func__, name.c_str());
 }

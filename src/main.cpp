@@ -8,16 +8,24 @@ int main(int argc, char *argv[])
     (void) argc;
     (void) argv;
 
-    log::put(log::INFO, __func__, "%s", PROJ_NAME);
+    logger::i(__func__, "%s", PROJ_NAME);
 
     window::init();
+
+    glewExperimental = GL_TRUE;
+    GLenum glew_err = glewInit();
+    if (glew_err != GLEW_OK)
+    {
+        logger::e("GLEW", "%s", glewGetErrorString(glew_err));
+        throw 1;
+    }
+
     context_manager::init();
 
     context_manager::push(new contexts::main);
     context_manager::loop();
 
     context_manager::terminate();
-    window::terminate();
 
     return 0;
 }

@@ -13,7 +13,7 @@ shader::shader(GLenum type, std::string name, char **source) :
     so = glCreateShader(type);
     if (!so)
     {
-        log::put(log::ERROR, __func__, "%s: error 0x%X creating shader object", name.c_str(), glGetError());
+        logger::e(__func__, "%s: error 0x%X creating shader object", name.c_str(), glGetError());
         goto shader_create_failed;
     }
 
@@ -26,11 +26,11 @@ shader::shader(GLenum type, std::string name, char **source) :
     glGetShaderInfoLog(so, 1024, NULL, log);
     if (status != GL_TRUE)
     {
-        log::put(log::ERROR, __func__, "%s failed to compile\n%s", name.c_str(), log);
+        logger::e(__func__, "%s failed to compile\n%s", name.c_str(), log);
         goto compile_failed;
     }
 
-    log::put(log::DEBUG, __func__, "%s compiled successfully\n%s", name.c_str(), log);
+    logger::d(__func__, "%s compiled successfully\n%s", name.c_str(), log);
     return;
 
 compile_failed:
@@ -46,5 +46,5 @@ shader::~shader()
 {
     glDeleteShader(so);
 
-    log::put(log::DEBUG, __func__, name.c_str());
+    logger::d(__func__, name.c_str());
 }

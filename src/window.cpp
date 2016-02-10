@@ -1,62 +1,44 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include <SFML/Window.hpp>
 #include "window.hpp"
-#include "log.hpp"
 
 namespace
 {
-    GLFWwindow *win;
-
-    void glfw_error_callback(int error, const char *description)
-    {
-        log::put(log::ERROR, "GLFW", "Error 0x%X: %s", error, description);
-    }
+    sf::Window win;
 }
 
 void window::init()
 {
-    glfwSetErrorCallback(&glfw_error_callback);
+    sf::ContextSettings cs;
+    cs.majorVersion = 3;
+    cs.minorVersion = 2;
 
-    if (!glfwInit())
-        throw 1;
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-
-    win = glfwCreateWindow(640, 480, PROJ_NAME, NULL, NULL);
-    if (!win)
-        throw 1;
-
-    glfwMakeContextCurrent(win);
-    glfwSwapInterval(1);
-
-    glewExperimental = GL_TRUE;
-    GLenum glew_err = glewInit();
-    if (glew_err != GLEW_OK)
-    {
-        log::put(log::ERROR, "GLEW", "%s", glewGetErrorString(glew_err));
-        throw 1;
-    }
-}
-
-void window::terminate()
-{
-    glfwTerminate();
-
-    log::put(log::INFO, "window", "Bye!");
+    win.create(sf::VideoMode(640, 480), PROJ_NAME, sf::Style::Titlebar | sf::Style::Close, cs);
+    win.setVerticalSyncEnabled(true);
 }
 
 bool window::closed()
 {
-    return glfwWindowShouldClose(win);
+    return !win.isOpen();
 }
 
 void window::swap_buffers()
 {
-    glfwSwapBuffers(win);
+    win.display();
 }
 
 void window::poll_events()
 {
-    glfwPollEvents();
+    sf::Event event;
+    while (win.pollEvent(event))
+    {
+        switch (event.type)
+        {
+            case sf::Event::Closed:
+                win.close();
+                break;
+
+            default:
+                continue;
+        }
+    }
 }

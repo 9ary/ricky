@@ -3,17 +3,12 @@
 
 #define LOG_LEVEL DEBUG
 
-namespace log
+namespace logger
 {
-    enum log_level
-    {
-        DEBUG,
-        INFO,
-        WARN,
-        ERROR
-    };
-
-    void put(enum log_level level, const char *module, const char *format, ...);
+    void d(const char *module, const char *format, ...);
+    void i(const char *module, const char *format, ...);
+    void w(const char *module, const char *format, ...);
+    void e(const char *module, const char *format, ...);
 }
 
 #endif

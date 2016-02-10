@@ -10,9 +10,8 @@ namespace contexts
     class main : public context
     {
         protected:
-            GLuint vbo, shp, vao, pos_attrib;
-            static shader vsh();
-            static shader fsh();
+            GLuint vbo, vao, pos_attrib;
+            static shader sh();
 
         public:
             main();

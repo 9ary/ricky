@@ -5,7 +5,7 @@
 
 class window
 {
-    private:
+    protected:
         sf::Window win;
 
         window();

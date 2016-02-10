@@ -18,7 +18,7 @@ class command;
 
 class context_manager
 {
-    private:
+    protected:
         std::vector<context *> stack;
         std::queue<command> commands;
 

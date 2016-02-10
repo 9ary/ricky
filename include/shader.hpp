@@ -7,13 +7,13 @@
 class shader
 {
     protected:
-        GLuint so;
+        GLuint vsh, gsh, fsh, shp;
 
     public:
-        shader(GLenum type, std::string path);
+        shader(std::string vertex, std::string geom, std::string frag);
         ~shader();
 
-        operator GLuint() { return so; }
+        operator GLuint() { return shp; }
 };
 
 #endif

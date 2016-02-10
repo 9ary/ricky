@@ -13,16 +13,10 @@ namespace
 
 namespace contexts
 {
-    shader main::vsh()
+    shader main::sh()
     {
-        static shader sh(GL_VERTEX_SHADER, "shaders/test.vsh");
-        return sh;
-    }
-
-    shader main::fsh()
-    {
-        static shader sh(GL_FRAGMENT_SHADER, "shaders/test.fsh");
-        return sh;
+        static shader shp("shaders/test.vsh", "", "shaders/test.fsh");
+        return shp;
     }
 
     main::main()
@@ -31,17 +25,12 @@ namespace contexts
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-        shp = glCreateProgram();
-        glAttachShader(shp, vsh());
-        glAttachShader(shp, fsh());
-        glBindFragDataLocation(shp, 0, "outColor");
-        glLinkProgram(shp);
-        glUseProgram(shp);
+        glUseProgram(sh());
 
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
 
-        pos_attrib = glGetAttribLocation(shp, "position");
+        pos_attrib = glGetAttribLocation(sh(), "position");
         glVertexAttribPointer(pos_attrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
         glEnableVertexAttribArray(pos_attrib);
     }

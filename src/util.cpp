@@ -1,9 +1,8 @@
 #include <fstream>
-#include "file.hpp"
+#include "util.hpp"
 #include "log.hpp"
 
-file::file(std::string path)
-    : name(path)
+void util::read_file(std::string path, std::vector<char> &buffer)
 {
     std::ifstream fs(path, std::ifstream::binary);
 
@@ -11,23 +10,15 @@ file::file(std::string path)
     int size = fs.tellg();
     fs.seekg(0, fs.beg);
 
-    buffer = new char[size + 1];
+    buffer.resize(size);
 
-    fs.read(buffer, size);
+    fs.read(&buffer[0], size);
     if (fs.gcount() != size)
     {
         logger::e(__func__, "%s: failed to read file", path.c_str());
-        delete[] buffer;
         throw 1;
     }
 
     // Null terminator (!!!)
-    buffer[size] = 0;
-}
-
-file::~file()
-{
-    delete[] buffer;
-
-    logger::d(__func__, name.c_str());
+    buffer.push_back('\0');
 }

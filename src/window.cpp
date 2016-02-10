@@ -11,6 +11,8 @@ void window::init()
     sf::ContextSettings cs;
     cs.majorVersion = 3;
     cs.minorVersion = 2;
+    cs.depthBits = 24;
+    cs.stencilBits = 8;
 
     win.create(sf::VideoMode(640, 480), PROJ_NAME, sf::Style::Titlebar | sf::Style::Close, cs);
     win.setVerticalSyncEnabled(true);

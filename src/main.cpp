@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 
     logger::i(__func__, "%s", PROJ_NAME);
 
-    window::init();
+    window::get();
 
     glewExperimental = GL_TRUE;
     GLenum glew_err = glewInit();
@@ -20,12 +20,10 @@ int main(int argc, char *argv[])
         throw 1;
     }
 
-    context_manager::init();
+    context_manager &cm = context_manager::get();
 
-    context_manager::push(new contexts::main);
-    context_manager::loop();
-
-    context_manager::terminate();
+    cm.push(new contexts::main);
+    cm.loop();
 
     return 0;
 }

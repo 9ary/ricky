@@ -14,17 +14,29 @@ class context
         virtual void render() = 0;
 };
 
-namespace context_manager
+class command;
+
+class context_manager
 {
-    void init();
-    void terminate();
+    private:
+        std::vector<context *> stack;
+        std::queue<command> commands;
 
-    void push(context *c);
-    void pop();
+        context_manager();
+        ~context_manager();
 
-    void loop();
+    public:
+        static context_manager &get();
 
-    void stop();
+        context_manager(context_manager const &) = delete;
+        void operator =(context_manager const &) = delete;
+
+        void push(context *c);
+        void pop();
+
+        void loop();
+
+        void stop();
 };
 
 #endif

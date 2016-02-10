@@ -1,12 +1,6 @@
-#include <SFML/Window.hpp>
 #include "window.hpp"
 
-namespace
-{
-    sf::Window win;
-}
-
-void window::init()
+window::window()
 {
     sf::ContextSettings cs;
     cs.majorVersion = 3;
@@ -16,6 +10,16 @@ void window::init()
 
     win.create(sf::VideoMode(640, 480), PROJ_NAME, sf::Style::Titlebar | sf::Style::Close, cs);
     win.setVerticalSyncEnabled(true);
+}
+
+window::~window()
+{
+}
+
+window &window::get()
+{
+    static window w;
+    return w;
 }
 
 bool window::closed()

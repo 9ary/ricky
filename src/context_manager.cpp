@@ -30,23 +30,23 @@ class command
         }
 };
 
-namespace
-{
-    std::vector<context *> stack;
-    std::queue<command> commands;
-}
-
-void context_manager::init()
+context_manager::context_manager()
 {
 }
 
-void context_manager::terminate()
+context_manager::~context_manager()
 {
     while (!stack.empty())
     {
         delete stack.back();
         stack.pop_back();
     }
+}
+
+context_manager &context_manager::get()
+{
+    static context_manager cm;
+    return cm;
 }
 
 void context_manager::push(context *c)
@@ -61,9 +61,11 @@ void context_manager::pop()
 
 void context_manager::loop()
 {
-    while ((!stack.empty() || !commands.empty()) && !window::closed())
+    window &win = window::get();
+
+    while ((!stack.empty() || !commands.empty()) && !win.closed())
     {
-        window::poll_events();
+        win.poll_events();
 
         while (!commands.empty())
         {
@@ -89,7 +91,7 @@ void context_manager::loop()
         context->update();
         context->render();
 
-        window::swap_buffers();
+        win.swap_buffers();
     }
 }
 

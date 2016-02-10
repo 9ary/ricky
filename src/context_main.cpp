@@ -13,17 +13,27 @@ namespace
 
 namespace contexts
 {
-    main::main() :
-        vsh(GL_VERTEX_SHADER, "shaders/test.vsh"),
-        fsh(GL_FRAGMENT_SHADER, "shaders/test.fsh")
+    shader main::vsh()
+    {
+        static shader sh(GL_VERTEX_SHADER, "shaders/test.vsh");
+        return sh;
+    }
+
+    shader main::fsh()
+    {
+        static shader sh(GL_FRAGMENT_SHADER, "shaders/test.fsh");
+        return sh;
+    }
+
+    main::main()
     {
         glGenBuffers(1, &vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
         shp = glCreateProgram();
-        glAttachShader(shp, vsh);
-        glAttachShader(shp, fsh);
+        glAttachShader(shp, vsh());
+        glAttachShader(shp, fsh());
         glBindFragDataLocation(shp, 0, "outColor");
         glLinkProgram(shp);
         glUseProgram(shp);

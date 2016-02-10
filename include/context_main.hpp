@@ -11,7 +11,8 @@ namespace contexts
     {
         protected:
             GLuint vbo, shp, vao, pos_attrib;
-            shader vsh, fsh;
+            static shader vsh();
+            static shader fsh();
 
         public:
             main();

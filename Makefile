@@ -2,8 +2,8 @@ NAME = rickygl
 
 DEBUG = FALSE
 
-CC = gcc
-CXX = g++
+CC = clang
+CXX = clang++
 
 CFLAGS_COMMON = -Wall -Wextra \
 	$(addprefix -I,$(INCLUDE)) \
@@ -11,8 +11,8 @@ CFLAGS_COMMON = -Wall -Wextra \
 	-MMD -MP \
 	-pipe
 
-CFLAGS = $(CFLAGS_COMMON) -std=gnu11
-CXXFLAGS = $(CFLAGS_COMMON) -std=gnu++11
+CFLAGS = $(CFLAGS_COMMON) -std=c11
+CXXFLAGS = $(CFLAGS_COMMON) -std=c++11
 
 ifeq ($(DEBUG),FALSE)
 	CFLAGS_COMMON += -O2 -flto
@@ -20,7 +20,7 @@ else
 	CFLAGS_COMMON += -O0 -g
 endif
 
-LDFLAGS = -lGLEW -lGL -lsfml-system -lsfml-window
+LDFLAGS = -fuse-ld=gold -lGLEW -lGL -lsfml-system -lsfml-window
 
 SRCS_C := $(wildcard src/*.c)
 SRCS_CXX := $(wildcard src/*.cpp)

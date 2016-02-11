@@ -5,7 +5,7 @@ DEBUG = FALSE
 CC = clang
 CXX = clang++
 
-CFLAGS_COMMON = -Wall -Wextra \
+CFLAGS_COMMON = -Wall -Wextra -pedantic \
 	$(addprefix -I,$(INCLUDE)) \
 	-D'PROJ_NAME="$(NAME)"' \
 	-MMD -MP \
@@ -55,7 +55,7 @@ $(OUT)/%.o: %.c | $(BUILT_HEADERS)
 $(OUT)/%.o: %.cpp | $(BUILT_HEADERS)
 	@echo "  CXX     $@"
 	@mkdir -p $(dir $@)
-	@$(CC) $(CXXFLAGS) -c $< -o $@
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 %.o: %.c | $(BUILT_HEADERS)
 	@echo "  CC      $@"
@@ -63,7 +63,7 @@ $(OUT)/%.o: %.cpp | $(BUILT_HEADERS)
 
 %.o: %.cpp | $(BUILT_HEADERS)
 	@echo "  CXX     $@"
-	@$(CC) $(CXXFLAGS) -c $< -o $@
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(EXE): $(OBJS)
 	@mkdir -p $(dir $@)

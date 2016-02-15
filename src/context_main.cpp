@@ -3,11 +3,13 @@
 
 namespace
 {
-    float vertices[] =
+    int vertices[] =
     {
-        0.0f, 0.5f,
-        0.5f, -0.5f,
-        -0.5f, -0.5f
+        0, 0,
+        639, 479,
+        320, 360,
+        480, 120,
+        160, 120
     };
 }
 
@@ -15,7 +17,7 @@ namespace contexts
 {
     shader main::sh()
     {
-        static shader shp("shaders/test.vsh", "", "shaders/test.fsh");
+        static shader shp("shaders/test.vsh", "shaders/test.gsh", "shaders/test.fsh");
         return shp;
     }
 
@@ -31,7 +33,7 @@ namespace contexts
         glBindVertexArray(vao);
 
         pos_attrib = glGetAttribLocation(sh(), "position");
-        glVertexAttribPointer(pos_attrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+        glVertexAttribPointer(pos_attrib, 2, GL_INT, GL_FALSE, 0, 0);
         glEnableVertexAttribArray(pos_attrib);
     }
 
@@ -48,6 +50,6 @@ namespace contexts
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_POINTS, 0, 5);
     }
 }

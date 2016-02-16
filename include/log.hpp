@@ -1,8 +1,6 @@
 #ifndef LOG_HPP
 #define LOG_HPP
 
-#define LOG_LEVEL DEBUG
-
 namespace logger
 {
     void d(const char *module, const char *format, ...);

@@ -20,7 +20,7 @@ else
 	CFLAGS_COMMON += -O0 -g
 endif
 
-LDFLAGS = -fuse-ld=gold -lGLEW -lGL -lsfml-system -lsfml-window
+LDFLAGS = -fuse-ld=gold -lGLEW -lGL -lsfml-system -lsfml-window -lsfml-graphics
 
 SRCS_C := $(wildcard src/*.c)
 SRCS_CXX := $(wildcard src/*.cpp)

@@ -21,7 +21,8 @@ namespace contexts
         return shp;
     }
 
-    main::main()
+    main::main() :
+        tex("art/dawn.png")
     {
         glGenBuffers(1, &vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -32,7 +33,7 @@ namespace contexts
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
 
-        pos_attrib = glGetAttribLocation(sh(), "position");
+        GLuint pos_attrib = glGetAttribLocation(sh(), "position");
         glVertexAttribPointer(pos_attrib, 2, GL_INT, GL_FALSE, 0, 0);
         glEnableVertexAttribArray(pos_attrib);
     }

@@ -1,8 +1,11 @@
 #version 150
 
 out vec4 ret;
+in vec2 texc;
+
+uniform sampler2D tex;
 
 void main()
 {
-    ret = vec4(1.0, 1.0, 1.0, 1.0);
+    ret = texture(tex, texc);
 }

@@ -2,6 +2,8 @@
 #include <cstdarg>
 #include "log.hpp"
 
+#define LOG_LEVEL DEBUG
+
 namespace
 {
     enum log_level

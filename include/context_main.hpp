@@ -4,14 +4,16 @@
 #include <GL/glew.h>
 #include "context.hpp"
 #include "shader.hpp"
+#include "texture.hpp"
 
 namespace contexts
 {
     class main : public context
     {
         protected:
-            GLuint vbo, vao, pos_attrib;
+            GLuint vbo, vao;
             static shader sh();
+            texture tex;
 
         public:
             main();

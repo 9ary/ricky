@@ -8,8 +8,6 @@ int main(int argc, char *argv[])
     (void) argc;
     (void) argv;
 
-    logger::i(__func__, "%s", PROJ_NAME);
-
     window::get();
 
     glewExperimental = GL_TRUE;

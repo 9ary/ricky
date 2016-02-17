@@ -30,13 +30,11 @@
 
 import os
 import ycm_core
-import subprocess
 
 # These are the compilation flags that will be used in case there's no
 # compilation database set (by default, one is not set).
 # CHANGE THIS LIST OF FLAGS. YES, THIS IS THE DROID YOU HAVE BEEN LOOKING FOR.
-flags = ['-x', 'c++']
-flags += subprocess.check_output(["make", "cflags"]).split(" ")
+flags = "-x c++ -Wall -Wextra -pedantic -std=c++11 -Iinclude".split(" ")
 
 
 # Set this to the absolute path to the folder (NOT the file!) containing the

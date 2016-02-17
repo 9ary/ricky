@@ -1,0 +1,26 @@
+builddir = build
+
+cxx = clang++
+
+cflags_common = -Wall -Wextra -pedantic $
+    -Iinclude $
+    -O2 -flto $
+    -pipe
+
+cxxflags = $cflags_common -std=c++11
+
+ldflags = -fuse-ld=gold -flto
+
+rule cxx
+    command = $cxx $cxxflags -MMD -MT $out -MF $out.d -c $in -o $out -pipe
+    description = CXX $out
+    depfile = $out.d
+    deps = gcc
+
+rule cxxld
+    command = $cxx $ldflags $libs $in -o $out
+    description = CXXLD $out
+
+include targets.ninja
+
+default ricky

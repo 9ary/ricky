@@ -8,7 +8,7 @@ window::window()
     cs.depthBits = 24;
     cs.stencilBits = 8;
 
-    win.create(sf::VideoMode(640, 480), PROJ_NAME, sf::Style::Titlebar | sf::Style::Close, cs);
+    win.create(sf::VideoMode(640, 480), "ricky", sf::Style::Titlebar | sf::Style::Close, cs);
     win.setVerticalSyncEnabled(true);
 }
 

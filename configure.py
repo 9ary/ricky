@@ -2,9 +2,8 @@
 
 import shogun
 
-obj = shogun.Objects("src/*.cpp", "cxx", "o", "$builddir")
-asm = shogun.Assembly("ricky", "cxxld", [obj],
+obj = shogun.Objects("src/*.cpp", "cxx", "o")
+exe = shogun.Assembly("$builddir/ricky", "cxxld", obj,
         options = { "libs": "-lGLEW -lGL -lsfml-system -lsfml-window -lsfml-graphics" })
 
-with open("targets.ninja", "w") as f:
-    shogun.save(f, [obj, asm])
+shogun.build(obj, exe)

@@ -1,18 +1,5 @@
-builddir = build
-
-cxx = clang++
-
-cflags_common = -Wall -Wextra -pedantic $
-    -Iinclude $
-    -O2 -flto $
-    -pipe
-
-cxxflags = $cflags_common -std=c++11
-
-ldflags = -fuse-ld=gold -flto
-
 rule cxx
-    command = $cxx $cxxflags -MMD -MT $out -MF $out.d -c $in -o $out -pipe
+    command = $cxx $cxxflags -MMD -MT $out -MF $out.d -c $in -o $out
     description = CXX $out
     depfile = $out.d
     deps = gcc
@@ -23,4 +10,15 @@ rule cxxld
 
 include targets.ninja
 
-default ricky
+cxx = clang++
+
+cflags_common = -Wall -Wextra -pedantic $
+    -I$srcdir/include $
+    -O2 -flto $
+    -pipe
+
+cxxflags = $cflags_common -std=c++11
+
+ldflags = -fuse-ld=gold -flto
+
+default $builddir/ricky

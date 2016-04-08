@@ -4,7 +4,7 @@ all:
 	@ninja
 
 run: all
-	@./ricky
+	@./build/ricky
 
 clean:
 	@ninja -t clean
